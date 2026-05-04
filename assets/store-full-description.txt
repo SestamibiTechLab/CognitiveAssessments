@@ -1,0 +1,30 @@
+Cognitive Assessments is a clinical reference tool designed for healthcare professionals to administer, score, and record four validated cognitive screening instruments at the point of care.
+
+ASSESSMENTS INCLUDED
+
+SLUMS — Saint Louis University Mental Status Exam
+A 30-point assessment sensitive to mild cognitive impairment and dementia. Covers orientation, memory, attention, executive function, and language. Scoring is adjusted for level of education.
+
+RUDAS — Rowland Universal Dementia Assessment Scale
+A 30-point instrument designed to minimise the effects of cultural learning and language diversity. Assesses memory registration and recall, body orientation, praxis, visuospatial ability, judgement, and language fluency.
+
+MoCA — Montreal Cognitive Assessment
+Links directly to the official MoCA website (mocacognition.com) for access to the test and administration instructions in accordance with copyright requirements.
+
+AD8 — AD8 Dementia Screening Interview
+An 8-item informant interview that detects early cognitive change across multiple dementing illnesses including Alzheimer disease, vascular dementia, Lewy body dementia, and frontotemporal dementia. Can be administered to an informant or the patient directly.
+
+KEY FEATURES
+
+• Anonymous mode — no patient identifiers are collected or stored
+• Persistent session history with per-question score breakdown
+• Scoring and interpretation displayed inline during assessment
+• Timer support for timed subtasks
+• Audio playback for story recall (SLUMS)
+• Offline — no internet connection required for SLUMS, RUDAS, or AD8
+
+INTENDED USE
+This app is intended as a clinical aid for qualified healthcare professionals. It does not replace clinical judgement. A screening result alone is insufficient to diagnose a dementing disorder.
+
+PRIVACY
+No personal health information (PHI) is collected. All session data is stored locally on the device only.

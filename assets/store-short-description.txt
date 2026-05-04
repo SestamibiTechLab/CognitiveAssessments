@@ -1,0 +1,1 @@
+Clinical cognitive screening tool for healthcare professionals: administer and score SLUMS, RUDAS, MoCA, and AD8 assessments at the bedside.
