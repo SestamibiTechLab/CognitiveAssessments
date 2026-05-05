@@ -2,7 +2,7 @@
   "expo": {
     "name": "Cognitive Assessments",
     "slug": "cognitive-assessments",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,7 +17,7 @@
     },
     "android": {
       "package": "com.sestamibitechlab.slums",
-      "versionCode": 1,
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -26,6 +26,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a14cd138-02b3-458e-91a9-ab4eb8cac675"
+      }
+    },
+    "owner": "sestamibi"
   }
 }
