@@ -297,7 +297,7 @@ export default function App() {
         </QuestionSection>
 
         <QuestionSection title="6. Please name as many animals as you can in one minute." maxPoints={3}>
-          <Text style={styles.mutedSmall}>Timer: {timerSeconds}s</Text>
+          <Text style={styles.timerText}>Timer: {timerSeconds}s</Text>
           <Button
             label={running ? "Reset Timer" : "Start Timer"}
             variant="secondary"
@@ -666,7 +666,7 @@ export default function App() {
           <Text style={styles.rudasInstruction}>
             "I am going to time you for one minute. In that one minute, I would like you to tell me the names of as many different animals as you can."
           </Text>
-          <Text style={styles.mutedSmall}>Timer: {rudasTimerSeconds}s</Text>
+          <Text style={styles.timerText}>Timer: {rudasTimerSeconds}s</Text>
           <Button
             label={rudasTimerRunning ? "Reset Timer" : "Start Timer"}
             variant="secondary"
@@ -1021,6 +1021,11 @@ const styles = StyleSheet.create({
   mutedSmall: {
     color: "#666",
     fontSize: 12,
+  },
+  timerText: {
+    fontSize: 22,
+    fontWeight: "700",
+    color: "#1a1a1a",
   },
   card: {
     borderWidth: 1,
