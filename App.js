@@ -99,6 +99,8 @@ export default function App() {
   const [timerSeconds, setTimerSeconds] = useState(60);
   const [running, setRunning] = useState(false);
   const [history, setHistory] = useState([]);
+  const [slumsAnimalCount, setSlumsAnimalCount] = useState(0);
+  const slumsAnimalCountRef = useRef(0);
   const [shapeState, setShapeState] = useState({ square: false, triangle: false, rectangle: false });
   const [largestShape, setLargestShape] = useState("");
   const [saved, setSaved] = useState(false);
@@ -121,9 +123,16 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    slumsAnimalCountRef.current = slumsAnimalCount;
+  }, [slumsAnimalCount]);
+
+  useEffect(() => {
     if (!running) return;
     if (timerSeconds === 0) {
       setRunning(false);
+      const count = slumsAnimalCountRef.current;
+      const id = count >= 15 ? "q6d" : count >= 10 ? "q6c" : count >= 5 ? "q6b" : "q6a";
+      setSelectedById((prev) => ({ ...prev, q6a: false, q6b: false, q6c: false, q6d: false, [id]: true }));
       return;
     }
     const handle = setTimeout(() => setTimerSeconds((prev) => prev - 1), 1000);
@@ -173,6 +182,7 @@ export default function App() {
     setSelectedById({});
     setTimerSeconds(60);
     setRunning(false);
+    setSlumsAnimalCount(0);
     setShapeState({ square: false, triangle: false, rectangle: false });
     setLargestShape("");
     setSaved(false);
@@ -250,7 +260,7 @@ export default function App() {
 
   if (screen === "assessment") {
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
         <Text style={styles.title}>SLUMS Mental Status Exam</Text>
         <QuestionSection title="1. What day of the week is it?" maxPoints={1}>
           <Pressable style={styles.row} onPress={() => toggleScore("q1")}>
@@ -310,6 +320,21 @@ export default function App() {
               }
             }}
           />
+          <View style={styles.counterRow}>
+            <Pressable
+              style={styles.counterBtn}
+              onPress={() => setSlumsAnimalCount((c) => Math.max(0, c - 1))}
+            >
+              <Text style={styles.counterBtnText}>−</Text>
+            </Pressable>
+            <Text style={styles.counterValue}>{slumsAnimalCount} animals</Text>
+            <Pressable
+              style={styles.counterBtn}
+              onPress={() => setSlumsAnimalCount((c) => c + 1)}
+            >
+              <Text style={styles.counterBtnText}>+</Text>
+            </Pressable>
+          </View>
           {[
             ["q6a", "0-4 animals", 0],
             ["q6b", "5-9 animals", 1],
@@ -498,7 +523,7 @@ export default function App() {
 
   if (screen === "credits") {
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
         <Text style={styles.title}>Credits</Text>
         <Text style={styles.creditsBody}>
           The Saint Louis University Mental Status exam is an assessment tool for mild cognitive impairment and dementia and was developed in partnership with the Geriatrics Research, Education and Clinical Center at the St. Louis Veterans Administration Medical Center.
@@ -517,7 +542,7 @@ export default function App() {
     const rudasInterpretation = getRudasInterpretation(rudasScore);
 
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
         <Text style={styles.title}>RUDAS Assessment</Text>
 
         {/* Item 1: Memory Registration (no scoring) */}
@@ -722,7 +747,7 @@ export default function App() {
 
   if (screen === "rudas_credits") {
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
         <Text style={styles.title}>Credits</Text>
         <Text style={styles.creditsBody}>
           The Rowland Universal Dementia Assessment Scale (RUDAS): A Multicultural Cognitive Assessment Scale – (Storey J, Rowland J, Basic D, Conforti D &amp; Dickson H [2004] <Text style={styles.creditsJournal}>International Psychogeriatrics</Text>, 16(1) 13-31) is a short cognitive screening instrument designed to minimise the effects of cultural learning and language diversity on the assessment of baseline cognitive performance.
@@ -734,7 +759,7 @@ export default function App() {
 
   if (screen === "ad8") {
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.homeContent}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.homeContent}>
         <Text style={styles.title}>AD8</Text>
         <Text style={styles.muted}>AD8 Dementia Screening Interview</Text>
         <Text style={styles.muted}>Anonymous mode is enabled: no PHI is stored.</Text>
@@ -750,7 +775,7 @@ export default function App() {
     const ad8Score = calculateAd8Score(ad8Answers);
     const ad8Interpretation = getAd8Interpretation(ad8Score);
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
         <Text style={styles.title}>AD8 Dementia Screening</Text>
         <View style={styles.questionCard}>
           <Text style={styles.mutedSmall}>
@@ -796,7 +821,7 @@ export default function App() {
 
   if (screen === "ad8_credits") {
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
         <Text style={styles.title}>Credits</Text>
         <Text style={styles.creditsBody}>
           Adapted from Galvin JE et al, The AD8, a brief informant interview to detect dementia, <Text style={styles.creditsJournal}>Neurology</Text> 2005:65:559-564. Copyright 2005. The AD8 is a copyrighted instrument of the Alzheimer's Disease Research Center, Washington University, St. Louis, Missouri. All Rights Reserved.
@@ -808,7 +833,7 @@ export default function App() {
 
   if (screen === "history") {
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
         <Text style={styles.title}>Anonymous History</Text>
         <Text>No names stored.</Text>
         {history.length === 0 ? (
@@ -867,7 +892,7 @@ export default function App() {
 
   if (screen === "home") {
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.homeContent}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.homeContent}>
         <Text style={styles.title}>SLUMS Mental Status Exam</Text>
         <Text style={styles.muted}>Anonymous mode is enabled: no PHI is stored.</Text>
         <Button label="Start Assessment" onPress={() => { resetAssessment(); setScreen("assessment"); }} />
@@ -881,7 +906,7 @@ export default function App() {
 
   if (screen === "rudas") {
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.homeContent}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.homeContent}>
         <Text style={styles.title}>RUDAS</Text>
         <Text style={styles.muted}>Rowland Universal Dementia Assessment Scale</Text>
         <Text style={styles.muted}>Anonymous mode is enabled: no PHI is stored.</Text>
@@ -895,7 +920,7 @@ export default function App() {
 
   if (screen === "about") {
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.homeContent}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.homeContent}>
         <Text style={styles.title}>About</Text>
         <Text style={styles.creditsBody}>
           Cognitive Assessments is a free tool for clinicians and caregivers to administer validated cognitive screening assessments. No personal health information is stored.
@@ -913,7 +938,7 @@ export default function App() {
 
   if (screen === "privacy") {
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
         <Text style={styles.title}>Privacy Policy</Text>
         <Text style={styles.mutedSmall}>Last updated: May 3, 2026</Text>
 
@@ -957,7 +982,7 @@ export default function App() {
 
   if (screen === "moca") {
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.homeContent}>
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.homeContent}>
         <Text style={styles.title}>MoCA</Text>
         <Text style={styles.muted}>Montreal Cognitive Assessment</Text>
         <Text style={styles.creditsBody}>
@@ -972,7 +997,7 @@ export default function App() {
   }
 
   return (
-    <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.homeContent}>
+    <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.homeContent}>
       <Text style={[styles.title, { textAlign: "center" }]}>Cognitive Assessments</Text>
       <Pressable style={styles.assessmentCard} onPress={() => setScreen("home")}>
         <Text style={styles.assessmentCardTitle}>SLUMS</Text>
@@ -999,17 +1024,22 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: "#fff",
+  },
   content: {
     paddingTop: 32,
     paddingHorizontal: 16,
     paddingBottom: 64,
     gap: 12,
+    backgroundColor: "#fff",
   },
   homeContent: {
     flexGrow: 1,
     justifyContent: "center",
     padding: 32,
     gap: 12,
+    backgroundColor: "#fff",
   },
   title: {
     fontSize: 24,
@@ -1026,6 +1056,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "700",
     color: "#1a1a1a",
+    textAlign: "center",
   },
   card: {
     borderWidth: 1,
