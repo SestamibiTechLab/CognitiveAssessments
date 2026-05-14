@@ -524,13 +524,19 @@ export default function App() {
   if (screen === "credits") {
     return (
       <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Credits</Text>
+        <Text style={styles.title}>Credits/Guidance</Text>
         <Text style={styles.creditsBody}>
           The Saint Louis University Mental Status exam is an assessment tool for mild cognitive impairment and dementia and was developed in partnership with the Geriatrics Research, Education and Clinical Center at the St. Louis Veterans Administration Medical Center.
         </Text>
         <Text style={styles.creditsReference}>
           SH Tariq, N Tumosa, JT Chibnall, HM Perry III, and JE Morley. The Saint Louis University Mental Status (SLUMS) Examination for detecting mild cognitive impairment and dementia is more sensitive than the Mini-Mental Status Examination (MMSE) - A pilot study. <Text style={styles.creditsJournal}>Am J Geriatr Psych</Text> 14:900-10, 2006.
         </Text>
+        <Text style={styles.creditsBody}>
+          For further information on how to administer the assessment, a training video, scoring process and FAQ, please refer to:
+        </Text>
+        <Pressable onPress={() => Linking.openURL("https://www.slu.edu/medicine/internal-medicine/geriatric-medicine/aging-successfully/mental-status-exam.php")}>
+          <Text style={styles.link}>slu.edu — SLUMS mental status exam</Text>
+        </Pressable>
         <Button label="Back" variant="secondary" onPress={() => setScreen("home")} />
       </ScrollView>
     );
@@ -748,10 +754,16 @@ export default function App() {
   if (screen === "rudas_credits") {
     return (
       <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Credits</Text>
+        <Text style={styles.title}>Credits/Guidance</Text>
         <Text style={styles.creditsBody}>
           The Rowland Universal Dementia Assessment Scale (RUDAS): A Multicultural Cognitive Assessment Scale – (Storey J, Rowland J, Basic D, Conforti D &amp; Dickson H [2004] <Text style={styles.creditsJournal}>International Psychogeriatrics</Text>, 16(1) 13-31) is a short cognitive screening instrument designed to minimise the effects of cultural learning and language diversity on the assessment of baseline cognitive performance.
         </Text>
+        <Text style={styles.creditsBody}>
+          For further information on how to administer and score the tool, refer to:
+        </Text>
+        <Pressable onPress={() => Linking.openURL("https://www.dementia.org.au/professionals/assessment-and-diagnosis-dementia/rowland-universal-dementia-assessment-scale-rudas")}>
+          <Text style={styles.link}>dementia.org.au — RUDAS guidance</Text>
+        </Pressable>
         <Button label="Back" variant="secondary" onPress={() => setScreen("rudas")} />
       </ScrollView>
     );
@@ -764,8 +776,8 @@ export default function App() {
         <Text style={styles.muted}>AD8 Dementia Screening Interview</Text>
         <Text style={styles.muted}>Anonymous mode is enabled: no PHI is stored.</Text>
         <Button label="Start Assessment" onPress={() => { resetAd8Assessment(); setScreen("ad8_assessment"); }} />
+        <Button label="Credits/Guidance" variant="secondary" onPress={() => setScreen("ad8_credits")} />
         <Button label="Anonymous History" variant="secondary" onPress={() => goHistory("ad8")} />
-        <Button label="Credits" variant="secondary" onPress={() => setScreen("ad8_credits")} />
         <Button label="Back" variant="secondary" onPress={() => setScreen("main")} />
       </ScrollView>
     );
@@ -822,10 +834,22 @@ export default function App() {
   if (screen === "ad8_credits") {
     return (
       <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Credits</Text>
+        <Text style={styles.title}>Credits/Guidance</Text>
         <Text style={styles.creditsBody}>
           Adapted from Galvin JE et al, The AD8, a brief informant interview to detect dementia, <Text style={styles.creditsJournal}>Neurology</Text> 2005:65:559-564. Copyright 2005. The AD8 is a copyrighted instrument of the Alzheimer's Disease Research Center, Washington University, St. Louis, Missouri. All Rights Reserved.
         </Text>
+        <Text style={styles.privacySection}>The AD8 Administration and Scoring Guidelines</Text>
+        <Text style={styles.creditsBody}>
+          A spontaneous self-correction is allowed for all responses without counting as an error. The questions are given to the respondent on a clipboard for self–administration or can be read aloud to the respondent either in person or over the phone. It is preferable to administer the AD8 to an informant, if available. If an informant is not available, the AD8 may be administered to the patient. When administered to an informant, specifically ask the respondent to rate change in the patient. When administered to the patient, specifically ask the patient to rate changes in his/her ability for each of the items, without attributing causality. If read aloud to the respondent, it is important for the clinician. Based on clinical research findings from 995 individuals included in the development and validation samples, the following cut points are provided:
+        </Text>
+        <Text style={styles.creditsBody}>• 0 – 1:  Normal cognition</Text>
+        <Text style={styles.creditsBody}>• 2 or greater: Cognitive impairment is likely to be present</Text>
+        <Text style={styles.creditsBody}>
+          For a standalone AD8 app developed by Washington University St Louis, follow this link:
+        </Text>
+        <Pressable onPress={() => Linking.openURL("https://play.google.com/store/apps/details?id=com.appcatalyst.ad8&pcampaignid=web_share")}>
+          <Text style={styles.link}>Play Store — AD8 by Washington University</Text>
+        </Pressable>
         <Button label="Back" variant="secondary" onPress={() => setScreen("ad8")} />
       </ScrollView>
     );
@@ -896,8 +920,8 @@ export default function App() {
         <Text style={styles.title}>SLUMS Mental Status Exam</Text>
         <Text style={styles.muted}>Anonymous mode is enabled: no PHI is stored.</Text>
         <Button label="Start Assessment" onPress={() => { resetAssessment(); setScreen("assessment"); }} />
+        <Button label="Credits/Guidance" variant="secondary" onPress={() => setScreen("credits")} />
         <Button label="Anonymous History" variant="secondary" onPress={() => goHistory("home")} />
-        <Button label="Credits" variant="secondary" onPress={() => setScreen("credits")} />
         <Button label="Back" variant="secondary" onPress={() => setScreen("main")} />
         <StatusBar style="auto" />
       </ScrollView>
@@ -911,8 +935,8 @@ export default function App() {
         <Text style={styles.muted}>Rowland Universal Dementia Assessment Scale</Text>
         <Text style={styles.muted}>Anonymous mode is enabled: no PHI is stored.</Text>
         <Button label="Start Assessment" onPress={() => { resetRudasAssessment(); setScreen("rudas_assessment"); }} />
+        <Button label="Credits/Guidance" variant="secondary" onPress={() => setScreen("rudas_credits")} />
         <Button label="Anonymous History" variant="secondary" onPress={() => goHistory("rudas")} />
-        <Button label="Credits" variant="secondary" onPress={() => setScreen("rudas_credits")} />
         <Button label="Back" variant="secondary" onPress={() => setScreen("main")} />
       </ScrollView>
     );
@@ -1007,13 +1031,13 @@ export default function App() {
         <Text style={styles.assessmentCardTitle}>RUDAS</Text>
         <Text style={styles.assessmentCardSubtitle}>Rowland Universal Dementia Assessment Scale</Text>
       </Pressable>
-      <Pressable style={styles.assessmentCard} onPress={() => setScreen("moca")}>
-        <Text style={styles.assessmentCardTitle}>MoCA</Text>
-        <Text style={styles.assessmentCardSubtitle}>Montreal Cognitive Assessment</Text>
-      </Pressable>
       <Pressable style={styles.assessmentCard} onPress={() => setScreen("ad8")}>
         <Text style={styles.assessmentCardTitle}>AD8</Text>
         <Text style={styles.assessmentCardSubtitle}>AD8 Dementia Screening Interview</Text>
+      </Pressable>
+      <Pressable style={styles.assessmentCard} onPress={() => setScreen("moca")}>
+        <Text style={styles.assessmentCardTitle}>MoCA</Text>
+        <Text style={styles.assessmentCardSubtitle}>Montreal Cognitive Assessment</Text>
       </Pressable>
       <StatusBar style="auto" />
       <Pressable onPress={() => setScreen("about")} style={{ alignItems: "center", marginTop: 8 }}>
@@ -1025,21 +1049,21 @@ export default function App() {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: "#fff",
+    backgroundColor: "#dbe7f3",
   },
   content: {
     paddingTop: 32,
     paddingHorizontal: 16,
     paddingBottom: 64,
     gap: 12,
-    backgroundColor: "#fff",
+    backgroundColor: "#dbe7f3",
   },
   homeContent: {
     flexGrow: 1,
     justifyContent: "center",
     padding: 32,
     gap: 12,
-    backgroundColor: "#fff",
+    backgroundColor: "#dbe7f3",
   },
   title: {
     fontSize: 24,
