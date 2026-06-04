@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Image,
@@ -8,12 +8,14 @@ import {
   Text,
   Dimensions,
   PanResponder,
+  Animated,
 } from 'react-native';
 import { useOnboarding } from '../features/onboarding/useOnboarding';
 
 const WalkthroughCarousel = ({ onClose }) => {
   const { completeOnboarding } = useOnboarding();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const fadeAnim = useRef(new Animated.Value(1)).current;
   const { height, width } = Dimensions.get('window');
 
   const screenshots = [
@@ -49,6 +51,16 @@ const WalkthroughCarousel = ({ onClose }) => {
 
   const panResponder = panResponderRef.current;
 
+  // Fade animation when image changes
+  useEffect(() => {
+    fadeAnim.setValue(0);
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  }, [currentIndex, fadeAnim]);
+
   const handleNext = () => {
     if (currentIndex < screenshots.length - 1) {
       setCurrentIndex(currentIndex + 1);
@@ -72,9 +84,9 @@ const WalkthroughCarousel = ({ onClose }) => {
     <SafeAreaView style={styles.container}>
       {/* Full-screen image with swipe gestures */}
       <View style={styles.imageContainer} {...panResponder.panHandlers}>
-        <Image
+        <Animated.Image
           source={screenshots[currentIndex]}
-          style={styles.image}
+          style={[styles.image, { opacity: fadeAnim }]}
           resizeMode="cover"
         />
       </View>
