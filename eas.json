@@ -5,7 +5,12 @@
   "build": {
     "production": {
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "app-bundle",
+        "withoutCredentials": false,
+        "gradleCommand": ":app:bundleRelease",
+        "env": {
+          "EXPO_USE_FAST_RESOLVER": "1"
+        }
       }
     }
   },
