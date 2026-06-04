@@ -6,6 +6,9 @@ import { addSessionScore, clearSessionHistory, getSessionHistory } from "./src/f
 import { QUESTION_ITEMS, STORY_TEXT, calculateScore, getInterpretation } from "./src/features/slums/scoring";
 import { calculateRudasScore, getRudasInterpretation, getRudasQuestionScores } from "./src/features/rudas/scoring";
 import { AD8_ITEMS, calculateAd8Score, getAd8Interpretation, getAd8QuestionScores } from "./src/features/ad8/scoring";
+import { OnboardingProvider } from "./src/features/onboarding/OnboardingContext";
+import { useOnboarding } from "./src/features/onboarding/useOnboarding";
+import WalkthroughCarousel from "./src/screens/WalkthroughCarousel";
 
 const QUESTION_GROUPS = [
   { label: "Question 1", ids: ["q1"] },
@@ -92,7 +95,7 @@ function TriangleOutline() {
   );
 }
 
-export default function App() {
+function AppContent({ showWalkthrough, setShowWalkthrough }) {
   const [screen, setScreen] = useState("main");
   const [highSchoolEducation, setHighSchoolEducation] = useState(true);
   const [selectedById, setSelectedById] = useState({});
@@ -107,16 +110,14 @@ export default function App() {
   const [expandedEntries, setExpandedEntries] = useState(new Set());
   const [returnScreen, setReturnScreen] = useState("main");
   const savedTimer = useRef(null);
-
-  const goHistory = (from) => { setReturnScreen(from); setScreen("history"); };
-
   const [rudasAnswers, setRudasAnswers] = useState({});
   const [rudasAnimalCount, setRudasAnimalCount] = useState(0);
   const [rudasTimerSeconds, setRudasTimerSeconds] = useState(60);
   const [rudasTimerRunning, setRudasTimerRunning] = useState(false);
-
   const [ad8Answers, setAd8Answers] = useState({});
   const [showCube, setShowCube] = useState(false);
+
+  const goHistory = (from) => { setReturnScreen(from); setScreen("history"); };
 
   useEffect(() => {
     getSessionHistory().then(setHistory);
@@ -952,6 +953,9 @@ export default function App() {
         <Pressable onPress={() => Linking.openURL("https://ko-fi.com/sestamibitechlab")}>
           <Text style={styles.link}>Donate</Text>
         </Pressable>
+        <Pressable onPress={() => Linking.openURL("https://play.google.com/store/apps/details?id=com.sestamibitechlab.slums")}>
+          <Text style={styles.link}>Rate & Review on Play Store</Text>
+        </Pressable>
         <Pressable onPress={() => setScreen("privacy")}>
           <Text style={styles.link}>Privacy Policy</Text>
         </Pressable>
@@ -1040,10 +1044,34 @@ export default function App() {
         <Text style={styles.assessmentCardSubtitle}>Montreal Cognitive Assessment</Text>
       </Pressable>
       <StatusBar style="auto" />
-      <Pressable onPress={() => setScreen("about")} style={{ alignItems: "center", marginTop: 8 }}>
-        <Text style={styles.aboutLink}>About</Text>
-      </Pressable>
+      <View style={styles.footerLinks}>
+        <Pressable onPress={() => setShowWalkthrough(true)} style={{ alignItems: "center", marginBottom: 8 }}>
+          <Text style={styles.aboutLink}>Help</Text>
+        </Pressable>
+        <Pressable onPress={() => setScreen("about")} style={{ alignItems: "center" }}>
+          <Text style={styles.aboutLink}>About</Text>
+        </Pressable>
+      </View>
     </ScrollView>
+  );
+}
+
+function AppWithOnboarding() {
+  const { hasCompletedOnboarding, isLoading } = useOnboarding();
+  const [showWalkthrough, setShowWalkthrough] = useState(!hasCompletedOnboarding && !isLoading);
+
+  if (showWalkthrough) {
+    return <WalkthroughCarousel onClose={() => setShowWalkthrough(false)} />;
+  }
+
+  return <AppContent showWalkthrough={showWalkthrough} setShowWalkthrough={setShowWalkthrough} />;
+}
+
+export default function App() {
+  return (
+    <OnboardingProvider>
+      <AppWithOnboarding />
+    </OnboardingProvider>
   );
 }
 
@@ -1331,6 +1359,11 @@ const styles = StyleSheet.create({
     color: "#333",
     fontSize: 15,
     lineHeight: 22,
+  },
+  footerLinks: {
+    alignItems: "center",
+    marginTop: 8,
+    gap: 0,
   },
   aboutLink: {
     color: "#888",
