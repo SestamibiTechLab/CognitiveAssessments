@@ -87,7 +87,7 @@ const WalkthroughCarousel = ({ onClose }) => {
         <Animated.Image
           source={screenshots[currentIndex]}
           style={[styles.image, { opacity: fadeAnim }]}
-          resizeMode="cover"
+          resizeMode="contain"
         />
       </View>
 
