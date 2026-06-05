@@ -8,9 +8,7 @@ platform :ios do
       username: ENV["APPLE_ID"] || "stevesethi@gmail.com",
       api_key_path: ENV["ASC_KEY_PATH"],
       app_version: "1.0.10",
-      ipa: nil,
       skip_binary_upload: true,
-      skip_package_validation: true,
       skip_app_version_update: true,
 
       # Screenshots
@@ -49,13 +47,12 @@ platform :ios do
       app_identifier: "com.sestamibitechlab.cognitiveassessments",
       username: ENV["APPLE_ID"] || "stevesethi@gmail.com",
       api_key_path: ENV["ASC_KEY_PATH"],
-      ipa: nil,
       skip_binary_upload: true,
-      skip_package_validation: true,
       skip_metadata: true,
       skip_app_version_update: true,
       screenshots_path: "./store/screenshots/ios/",
-      force: true
+      force: true,
+      overwrite_screenshots: true
     )
   end
 end
