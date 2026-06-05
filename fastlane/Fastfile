@@ -5,7 +5,8 @@ platform :ios do
   lane :upload_metadata do
     deliver(
       app_identifier: "com.sestamibitechlab.cognitiveassessments",
-      username: "stevesethi@gmail.com",
+      username: ENV["APPLE_ID"] || "stevesethi@gmail.com",
+      api_key_path: ENV["ASC_KEY_PATH"],
       app_version: "1.0.10",
       ipa: nil,
       skip_binary_upload: true,
@@ -46,7 +47,8 @@ platform :ios do
   lane :upload_screenshots_only do
     deliver(
       app_identifier: "com.sestamibitechlab.cognitiveassessments",
-      username: "stevesethi@gmail.com",
+      username: ENV["APPLE_ID"] || "stevesethi@gmail.com",
+      api_key_path: ENV["ASC_KEY_PATH"],
       ipa: nil,
       skip_binary_upload: true,
       skip_package_validation: true,
