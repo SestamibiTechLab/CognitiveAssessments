@@ -13,7 +13,9 @@
       "backgroundColor": "#dbe7f3"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sestamibitechlab.cognitivassessments",
+      "buildNumber": "1"
     },
     "android": {
       "package": "com.sestamibitechlab.slums",

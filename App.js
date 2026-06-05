@@ -1,7 +1,7 @@
 import * as Speech from "expo-speech";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useRef, useState } from "react";
-import { BackHandler, Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
+import { BackHandler, Linking, Platform, Pressable, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
 import { addSessionScore, clearSessionHistory, getSessionHistory } from "./src/features/history/session-store";
 import { QUESTION_ITEMS, STORY_TEXT, calculateScore, getInterpretation } from "./src/features/slums/scoring";
 import { calculateRudasScore, getRudasInterpretation, getRudasQuestionScores } from "./src/features/rudas/scoring";
@@ -151,6 +151,7 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
   }, [rudasTimerRunning, rudasTimerSeconds]);
 
   useEffect(() => {
+    if (Platform.OS !== 'android') return;
     const backMap = {
       home: "main",
       rudas: "main",
@@ -845,12 +846,16 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
         </Text>
         <Text style={styles.creditsBody}>• 0 – 1:  Normal cognition</Text>
         <Text style={styles.creditsBody}>• 2 or greater: Cognitive impairment is likely to be present</Text>
-        <Text style={styles.creditsBody}>
-          For a standalone AD8 app developed by Washington University St Louis, follow this link:
-        </Text>
-        <Pressable onPress={() => Linking.openURL("https://play.google.com/store/apps/details?id=com.appcatalyst.ad8&pcampaignid=web_share")}>
-          <Text style={styles.link}>Play Store — AD8 by Washington University</Text>
-        </Pressable>
+        {Platform.OS === 'android' && (
+          <>
+            <Text style={styles.creditsBody}>
+              For a standalone AD8 app developed by Washington University St Louis, follow this link:
+            </Text>
+            <Pressable onPress={() => Linking.openURL("https://play.google.com/store/apps/details?id=com.appcatalyst.ad8&pcampaignid=web_share")}>
+              <Text style={styles.link}>Play Store — AD8 by Washington University</Text>
+            </Pressable>
+          </>
+        )}
         <Button label="Back" variant="secondary" onPress={() => setScreen("ad8")} />
       </ScrollView>
     );
@@ -953,8 +958,8 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
         <Pressable onPress={() => Linking.openURL("https://ko-fi.com/sestamibitechlab")}>
           <Text style={styles.link}>Donate</Text>
         </Pressable>
-        <Pressable onPress={() => Linking.openURL("https://play.google.com/store/apps/details?id=com.sestamibitechlab.slums")}>
-          <Text style={styles.link}>Rate & Review on Play Store</Text>
+        <Pressable onPress={() => Linking.openURL(Platform.OS === 'ios' ? "https://apps.apple.com/app/idXXXXXXXXX" : "https://play.google.com/store/apps/details?id=com.sestamibitechlab.slums")}>
+          <Text style={styles.link}>{Platform.OS === 'ios' ? 'Rate & Review on App Store' : 'Rate & Review on Play Store'}</Text>
         </Pressable>
         <Pressable onPress={() => setScreen("privacy")}>
           <Text style={styles.link}>Privacy Policy</Text>

@@ -11,6 +11,9 @@
         "env": {
           "EXPO_USE_FAST_RESOLVER": "1"
         }
+      },
+      "ios": {
+        "distribution": "store"
       }
     }
   },
@@ -19,6 +22,11 @@
       "android": {
         "serviceAccountKeyPath": "./google-service-account.json",
         "track": "internal"
+      },
+      "ios": {
+        "appleId": "stevesethi@gmail.com",
+        "ascAppId": "XXXXXXXXXX",
+        "appleTeamId": "XXXXXXXXXX"
       }
     }
   }
