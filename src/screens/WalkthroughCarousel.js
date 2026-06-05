@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   footer: {
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     paddingTop: 15,
-    paddingBottom: 50,
+    paddingBottom: 80,
     paddingHorizontal: 20,
   },
   dotsContainer: {
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
-    marginBottom: 12,
+    marginBottom: 8,
   },
   dot: {
     width: 6,
