@@ -1,0 +1,59 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Upload screenshots and metadata to App Store Connect"
+  lane :upload_metadata do
+    deliver(
+      app_identifier: "com.sestamibitechlab.cognitiveassessments",
+      username: "stevesethi@gmail.com",
+      app_version: "1.0.10",
+      ipa: nil,
+      skip_binary_upload: true,
+      skip_package_validation: true,
+      skip_app_version_update: true,
+
+      # Screenshots
+      screenshots_path: "./store/screenshots/ios/",
+
+      # Metadata
+      release_notes: {
+        "en-US" => "Clinical cognitive screening tool for healthcare professionals"
+      },
+
+      description: {
+        "en-US" => "Cognitive Assessments is a free tool for clinicians and caregivers to administer validated cognitive screening assessments at the bedside. No personal health information is stored."
+      },
+
+      keywords: {
+        "en-US" => "cognitive assessment, dementia screening, SLUMS, RUDAS, MoCA, AD8"
+      },
+
+      # Support links
+      support_url: "https://github.com/SestamibiTechLab/Cognitive-Assessments",
+      marketing_url: "https://sestamibitechlab.github.io/",
+      privacy_url: "https://sestamibitechlab.github.io/CognitiveAssessments/privacy-policy.html",
+
+      # App category
+      primary_category: "MEDICAL",
+
+      # Skip confirmation
+      force: true,
+      skip_waiting_for_build_processing: true
+    )
+  end
+
+  desc "Upload only screenshots to App Store Connect"
+  lane :upload_screenshots_only do
+    deliver(
+      app_identifier: "com.sestamibitechlab.cognitiveassessments",
+      username: "stevesethi@gmail.com",
+      ipa: nil,
+      skip_binary_upload: true,
+      skip_package_validation: true,
+      skip_metadata: true,
+      skip_app_version_update: true,
+      screenshots_path: "./store/screenshots/ios/",
+      force: true
+    )
+  end
+end
