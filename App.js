@@ -958,7 +958,7 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
         <Pressable onPress={() => Linking.openURL("https://ko-fi.com/sestamibitechlab")}>
           <Text style={styles.link}>Donate</Text>
         </Pressable>
-        <Pressable onPress={() => Linking.openURL(Platform.OS === 'ios' ? "https://apps.apple.com/app/idXXXXXXXXX" : "https://play.google.com/store/apps/details?id=com.sestamibitechlab.slums")}>
+        <Pressable onPress={() => Linking.openURL(Platform.OS === 'ios' ? "https://apps.apple.com/app/id6776948414" : "https://play.google.com/store/apps/details?id=com.sestamibitechlab.slums")}>
           <Text style={styles.link}>{Platform.OS === 'ios' ? 'Rate & Review on App Store' : 'Rate & Review on Play Store'}</Text>
         </Pressable>
         <Pressable onPress={() => setScreen("privacy")}>
