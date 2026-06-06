@@ -874,7 +874,7 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
         </Text>
         <Text style={styles.privacySection}>The AD8 Administration and Scoring Guidelines</Text>
         <Text style={styles.creditsBody}>
-          A spontaneous self-correction is allowed for all responses without counting as an error. The questions are given to the respondent on a clipboard for self–administration or can be read aloud to the respondent either in person or over the phone. It is preferable to administer the AD8 to an informant, if available. If an informant is not available, the AD8 may be administered to the patient. When administered to an informant, specifically ask the respondent to rate change in the patient. When administered to the patient, specifically ask the patient to rate changes in his/her ability for each of the items, without attributing causality. If read aloud to the respondent, it is important for the clinician. Based on clinical research findings from 995 individuals included in the development and validation samples, the following cut points are provided:
+          A spontaneous self-correction is allowed for all responses without counting as an error. The questions are given to the respondent on a clipboard for self–administration or can be read aloud to the respondent either in person or over the phone. It is preferable to administer the AD8 to an informant, if available. If an informant is not available, the AD8 may be administered to the patient. When administered to an informant, specifically ask the respondent to rate change in the patient. When administered to the patient, specifically ask the patient to rate changes in his/her ability for each of the items, without attributing causality. If read aloud to the respondent, it is important for the clinician to carefully read the phrase as worded and give emphasis to note changes due to cognitive problems (not physical problems). There should be a one second delay between individual items. No timeframe for change is required. The final score is a sum of the number items marked "Yes, A change".{"\n\n"}A screening test in itself is insufficient to diagnose a dementing disorder. The AD8 is, however, quite sensitive to detecting early cognitive changes associated many common dementing illness including Alzheimer disease, vascular dementia, Lewy body dementia and frontotemporal dementia. Scores in the impaired range (see below) indicate a need for further assessment. Scores in the "normal" range suggest that a dementing disorder is unlikely, but a very early disease process cannot be ruled out. More advanced assessment may be warranted in cases where other objective evidence of impairment exists.{"\n\n"}Based on clinical research findings from 995 individuals included in the development and validation samples, the following cut points are provided:
         </Text>
         <Text style={styles.creditsBody}>• 0 – 1:  Normal cognition</Text>
         <Text style={styles.creditsBody}>• 2 or greater: Cognitive impairment is likely to be present</Text>
@@ -988,7 +988,7 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
           Cognitive Assessments is a free tool for clinicians and caregivers to administer validated cognitive screening assessments. No personal health information is stored.
         </Text>
         <Pressable onPress={() => Linking.openURL("https://ko-fi.com/sestamibitechlab")}>
-          <Text style={styles.link}>Donate</Text>
+          <Text style={styles.link}>Donate/Feedback</Text>
         </Pressable>
         <Pressable onPress={() => Linking.openURL(Platform.OS === 'ios' ? "https://apps.apple.com/app/id6776948414" : "https://play.google.com/store/apps/details?id=com.sestamibitechlab.slums")}>
           <Text style={styles.link}>{Platform.OS === 'ios' ? 'Rate & Review on App Store' : 'Rate & Review on Play Store'}</Text>
@@ -1083,7 +1083,7 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
       <StatusBar style="auto" />
       <View style={styles.footerLinks}>
         <Pressable onPress={() => setShowWalkthrough(true)} style={{ alignItems: "center", marginBottom: 8 }}>
-          <Text style={styles.aboutLink}>Help</Text>
+          <Text style={styles.aboutLink}>Help/Walkthrough</Text>
         </Pressable>
         <Pressable onPress={() => setScreen("about")} style={{ alignItems: "center" }}>
           <Text style={styles.aboutLink}>About</Text>
