@@ -1,4 +1,4 @@
-import * as Speech from "expo-speech";
+import { Audio } from "expo-av";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useRef, useState } from "react";
 import { BackHandler, Linking, Platform, Pressable, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
@@ -116,6 +116,8 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
   const [rudasTimerRunning, setRudasTimerRunning] = useState(false);
   const [ad8Answers, setAd8Answers] = useState({});
   const [showCube, setShowCube] = useState(false);
+  const [storyPlaying, setStoryPlaying] = useState(false);
+  const storySoundRef = useRef(null);
 
   const goHistory = (from) => { setReturnScreen(from); setScreen("history"); };
 
@@ -188,6 +190,11 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
     setShapeState({ square: false, triangle: false, rectangle: false });
     setLargestShape("");
     setSaved(false);
+    if (storySoundRef.current) {
+      storySoundRef.current.stopAsync().then(() => storySoundRef.current?.unloadAsync());
+      storySoundRef.current = null;
+    }
+    setStoryPlaying(false);
   };
 
   const resetRudasAssessment = () => {
@@ -462,13 +469,38 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
             {STORY_TEXT}
           </Text>
           <Button
-            label="Play / Stop Story Audio"
+            label={storyPlaying ? "Stop Story Audio" : "Play Story Audio"}
             onPress={async () => {
-              const speaking = await Speech.isSpeakingAsync();
-              if (speaking) {
-                Speech.stop();
+              if (storyPlaying) {
+                if (storySoundRef.current) {
+                  await storySoundRef.current.stopAsync();
+                  await storySoundRef.current.unloadAsync();
+                  storySoundRef.current = null;
+                }
+                setStoryPlaying(false);
               } else {
-                Speech.speak(STORY_TEXT, { language: "en-US", rate: 0.75 });
+                try {
+                  await Audio.setAudioModeAsync({
+                    playsInSilentModeIOS: true,
+                    allowsRecordingIOS: false,
+                    staysActiveInBackground: false,
+                  });
+                  const { sound } = await Audio.Sound.createAsync(
+                    require("./assets/story.wav"),
+                    { shouldPlay: true, volume: 1.0 }
+                  );
+                  storySoundRef.current = sound;
+                  setStoryPlaying(true);
+                  sound.setOnPlaybackStatusUpdate((status) => {
+                    if (status.didJustFinish) {
+                      sound.unloadAsync();
+                      storySoundRef.current = null;
+                      setStoryPlaying(false);
+                    }
+                  });
+                } catch (e) {
+                  setStoryPlaying(false);
+                }
               }
             }}
           />
@@ -1063,13 +1095,17 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
 
 function AppWithOnboarding() {
   const { hasCompletedOnboarding, isLoading } = useOnboarding();
-  const [showWalkthrough, setShowWalkthrough] = useState(!hasCompletedOnboarding && !isLoading);
+  const [manualShow, setManualShow] = useState(false);
 
-  if (showWalkthrough) {
-    return <WalkthroughCarousel onClose={() => setShowWalkthrough(false)} />;
+  // While AsyncStorage is being read, render nothing (splash stays visible)
+  if (isLoading) return null;
+
+  // Show walkthrough on first launch OR when triggered manually via Help
+  if (!hasCompletedOnboarding || manualShow) {
+    return <WalkthroughCarousel onClose={() => setManualShow(false)} />;
   }
 
-  return <AppContent showWalkthrough={showWalkthrough} setShowWalkthrough={setShowWalkthrough} />;
+  return <AppContent showWalkthrough={manualShow} setShowWalkthrough={setManualShow} />;
 }
 
 export default function App() {

@@ -49,3 +49,10 @@ yarn-error.*
 google-service-account.json
 *.aab
 *.apk
+
+# Python
+__pycache__/
+*.pyc
+
+# Fastlane generated
+fastlane/report.xml

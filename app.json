@@ -2,7 +2,7 @@
   "expo": {
     "name": "Cognitive Assessments",
     "slug": "cognitive-assessments",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "orientation": "sensor",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -14,15 +14,15 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sestamibitechlab.cognitivassessments",
-      "buildNumber": "1",
+      "bundleIdentifier": "com.sestamibitechlab.cognitiveassessments",
+      "buildNumber": "2",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
       "package": "com.sestamibitechlab.slums",
-      "versionCode": 11,
+      "versionCode": 12,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#dbe7f3"
@@ -32,6 +32,12 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "assetBundlePatterns": [
+      "assets/**"
+    ],
+    "plugins": [
+      "expo-av"
+    ],
     "extra": {
       "eas": {
         "projectId": "a14cd138-02b3-458e-91a9-ab4eb8cac675"
