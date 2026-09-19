@@ -1089,7 +1089,10 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
           • Loss of independent function (especially IADLs)
         </Text>
         <Text style={styles.creditsBody}>
-          Rule out: Delirium, Depression, Reversible causes of cognitive impairment
+          Rule out:{"\n"}
+          • Delirium{"\n"}
+          • Depression{"\n"}
+          • Reversible causes of cognitive impairment
         </Text>
 
         <Text style={styles.privacySection}>Differentiate MCI from Dementia</Text>
@@ -1108,18 +1111,28 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
         <Text style={styles.privacySection}>Evaluation and Workup</Text>
         <Text style={styles.creditsBody}>
           • Obtain collateral history from a reliable informant whenever possible{"\n"}
-          • Assess IADLs and caregiver observations (Driving, meds, finance, shopping, cooking, housekeeping, communications){"\n"}
-          • Use validated tools: AD8 (≥2 suggests concern), Mini-Cog (≤2 abnormal), SLUMS or MoCA for further assessment
+          • Assess IADLs and caregiver observations: driving, meds, finance, shopping, cooking, housekeeping, communications{"\n"}
+          • Use validated tools:{"\n"}
+          {"   "}"This is a brief cognitive test I give all older adults and helps us monitor brain function over time"{"\n"}
+          {"   "}AD8 (≥2 suggests concern), uses outside informant observations{"\n"}
+          {"   "}Mini-Cog (≤2 abnormal), quick screen, can be added to a routine visit{"\n"}
+          {"   "}SLUMS or MoCA for more detailed assessment
         </Text>
         <Text style={styles.creditsBody}>
           <Text style={{ fontWeight: "700" }}>Laboratory evaluation:</Text>{"\n"}
           CBC, CMP, TSH, B12. Consider additional testing based on clinical context (e.g., folate, HIV, RPR, vitamin D, toxicology)
         </Text>
         <Text style={styles.creditsBody}>
-          Consider blood-based Alzheimer's biomarkers (e.g., p-tau217) when diagnosis uncertain, early Alzheimer's suspected, or the patient/family wants more certainty and would be open to neurology referral for anti-amyloid monoclonal antibodies and understands the burden of frequent MRI monitoring and risks of bleeding.
+          Consider blood-based Alzheimer's biomarkers (e.g., p-tau217) when the diagnosis is uncertain, early Alzheimer's is suspected, and the patient/family wants more certainty and would be open to neurology referral for anti-amyloid mAbs. Need to understand the burden of frequent MRI monitoring and risks of bleeding. Real-world accuracy may be lower than in specialist studies and thresholds depend on the context of use.
         </Text>
         <Text style={styles.creditsBody}>
-          Consider brain MRI when: Age &lt;65, Rapid decline, Focal neurologic findings, Suspected NPH, Prior TBI, Atypical features
+          Consider brain MRI when:{"\n"}
+          • Age {"<"}65{"\n"}
+          • Rapid decline{"\n"}
+          • Focal neurologic findings{"\n"}
+          • Suspected NPH{"\n"}
+          • Prior TBI{"\n"}
+          • Atypical features
         </Text>
 
         <Text style={styles.privacySection}>Common Dementia Types</Text>
@@ -1147,13 +1160,29 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
 
         <Text style={styles.privacySection}>Why Diagnosis Matters</Text>
         <Text style={styles.creditsBody}>
-          Enables planning for finances, advance directives, and housing/living arrangements. Helps families access support and resources. Identifies safety concerns sooner. Influences medication management and future medical decision-making. Reduces risks associated with undiagnosed dementia, including unsafe driving, medication self-management, and financial decision-making.
+          Enables planning for:{"\n"}
+          • Finances{"\n"}
+          • Advance directives{"\n"}
+          • Housing and living arrangements
+        </Text>
+        <Text style={styles.creditsBody}>
+          Also:{"\n"}
+          • Helps families access support and resources{"\n"}
+          • Identifies safety concerns sooner{"\n"}
+          • Influences medication management and future medical decision-making{"\n"}
+          • Reduces risks associated with undiagnosed dementia, including unsafe driving, medication self-management, and financial decision-making
         </Text>
 
         <Text style={styles.privacySection}>Treatment Planning</Text>
         <Text style={styles.creditsBody}>
           <Text style={{ fontWeight: "700" }}>Non-Pharmacologic Interventions:</Text>{"\n"}
-          Emphasize regular physical activity, good sleep, healthy diet, cognitive stimulation, and alcohol reduction/avoidance. Consider hearing evaluation and treatment (better for prevention, less evidence after dementia is present).
+          Emphasize:{"\n"}
+          • Regular physical activity{"\n"}
+          • Good sleep{"\n"}
+          • Healthy diet{"\n"}
+          • Cognitive stimulation{"\n"}
+          • Alcohol reduction/avoidance{"\n"}
+          • Hearing evaluation and treatment (better supported for prevention; less evidence once dementia is already present)
         </Text>
         <Text style={styles.creditsBody}>
           <Text style={{ fontWeight: "700" }}>Medication Principles:</Text>{"\n"}
@@ -1161,17 +1190,17 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
         </Text>
         <Text style={styles.creditsBody}>
           <Text style={{ fontWeight: "700" }}>Cholinesterase Inhibitors:</Text>{"\n"}
-          • Donepezil (9-20% cognitive response rate, minimal BPSD response){"\n"}
-          • Rivastigmine: In Parkinson's dementia, moderate (20%) cognitive benefits, significant improvement in BPSD especially hallucinations, psychosis, and anxiety{"\n"}
-          • Most useful in mild-to-moderate dementia (donepezil approved for severe stage also)
+          • Donepezil (~9–20% cognitive responder rate across the class on the MMSE; minimal BPSD response){"\n"}
+          • Rivastigmine: in Parkinson's disease dementia, ~20% global/cognitive responder rate, with significant neuropsychiatric improvement on the NPI as a secondary outcome, strongest in patients with hallucinations{"\n"}
+          • Most useful in mild-to-moderate dementia (donepezil is also FDA-approved for the severe stage)
         </Text>
         <Text style={styles.creditsBody}>
           <Text style={{ fontWeight: "700" }}>Memantine:</Text>{"\n"}
-          Consider in moderate-to-severe dementia (NNT 3-8 for cognitive benefit, moderate BPSD treatment effect size) and may decrease the need for antipsychotics. May provide modest benefit when combined with donepezil.
+          Consider in moderate-to-severe dementia (NNT ~3–8 for cognitive benefit). May provide modest benefit when combined with donepezil. Small but significant effect on behavioral symptoms (NPI mean difference ~1.8 points; SMD ~0.2). May decrease the need for antipsychotics.
         </Text>
         <Text style={styles.creditsBody}>
           <Text style={{ fontWeight: "700" }}>Monitor for adverse effects:</Text>{"\n"}
-          Cholinesterase inhibitors: GI (donepezil high rates of nausea, anorexia, diarrhea), bradycardia, dizziness, nightmares. Memantine: dizziness, headache, sedation.
+          Cholinesterase inhibitors: dose-dependent GI effects (nausea, anorexia, diarrhea, vomiting), bradycardia, dizziness, nightmares. Memantine: dizziness, headache, sedation.
         </Text>
 
         <Text style={styles.privacySection}>Counseling Families and Caregivers</Text>
@@ -1181,18 +1210,23 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
           • Listen to caregiver experiences and validate their stress{"\n"}
           • Reassure caregivers when they are doing their best under difficult circumstances{"\n"}
           • Encourage caregivers to obtain their own support and healthcare resources{"\n"}
-          • Discuss safety proactively: Driving, Wandering, Firearms, Medication management, Food preparation and kitchen safety
+          • Discuss safety proactively:{"\n"}
+          {"   "}Driving, Wandering, Firearms, Medication management, Food preparation and kitchen safety
         </Text>
 
         <Text style={styles.privacySection}>Managing Behavioral Symptoms</Text>
         <Text style={styles.creditsBody}>
-          Reassure caregivers that behavioral and psychological symptoms of dementia (BPSD) are expected in 90% of patients during the disease course. View behavioral symptoms as expressions of unmet needs.
+          Reassure caregivers that behavioral and psychological symptoms of dementia (BPSD) are expected in {">"} 90% of patients over the disease course. View behavioral symptoms as expressions of unmet needs.
         </Text>
         <Text style={styles.creditsBody}>
-          Consider: Pain, Constipation, Hunger, Dehydration, Incontinence, Loneliness, Overstimulation, Sundowning
+          Consider: pain, constipation, hunger, dehydration, incontinence, loneliness, overstimulation, sundowning.
         </Text>
         <Text style={styles.creditsBody}>
-          <Text style={{ fontWeight: "700" }}>Use the DICE framework:</Text> Describe, Investigate, Create a plan, Evaluate
+          <Text style={{ fontWeight: "700" }}>Use the DICE framework:</Text>{"\n"}
+          • Describe{"\n"}
+          • Investigate{"\n"}
+          • Create a plan{"\n"}
+          • Evaluate
         </Text>
         <Text style={styles.creditsBody}>
           Avoid attributing behavior changes to UTI without urinary symptoms.
@@ -1200,29 +1234,86 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
 
         <Text style={styles.privacySection}>Antipsychotic Use</Text>
         <Text style={styles.creditsBody}>
-          Consider antipsychotics primarily for: Delusions, Hallucinations, Paranoia, Aggression
+          Consider antipsychotics as last-line and only after discussing black-box warnings, primarily for:{"\n"}
+          • Delusions{"\n"}
+          • Hallucinations{"\n"}
+          • Paranoia{"\n"}
+          • Aggression
         </Text>
         <Text style={styles.creditsBody}>
-          Antipsychotics generally do NOT improve: Repetition, Pacing, Apathy, Insomnia
+          Antipsychotics generally do not improve: repetition, pacing, apathy, insomnia.
         </Text>
         <Text style={styles.creditsBody}>
-          Start low, titrate slowly, and reassess efficacy and adverse effects; taper later.
+          Start low, titrate slowly, reassess efficacy and adverse effects, and taper later. Structured interdisciplinary stewardship/deprescribing programs can substantially and safely reduce antipsychotic use in facility settings.
         </Text>
         <Text style={styles.creditsBody}>
-          • Quetiapine 25 mg HS (most sedating, only option in LBD, least evidence){"\n"}
+          • Quetiapine 25 mg HS (most sedating; preferred in Lewy body disease due to low extrapyramidal risk, though cholinesterase inhibitors are first-line for neuropsychiatric symptoms in LBD; least antipsychotic efficacy evidence){"\n"}
           • Olanzapine 2.5 mg HS (moderately sedating){"\n"}
-          • Risperidone 0.25 mg BID (least sedating, may require higher doses, strongest evidence for aggression/psychosis but highest CV risk){"\n"}
-          • Aripiprazole 2 mg QD (most consistent efficacy and CV safety, often needs ~10 mg titration)
+          • Risperidone 0.25 mg BID (least sedating, may require higher doses; strongest evidence for aggression/psychosis but highest cardiovascular/cerebrovascular risk){"\n"}
+          • Aripiprazole 2 mg QD (most consistent efficacy and cardiovascular safety balance; often needs titration toward ~10 mg)
         </Text>
 
         <Text style={styles.privacySection}>Prognosis and Ongoing Care</Text>
         <Text style={styles.creditsBody}>
           • Document the diagnosis on the problem list{"\n"}
           • Include cognitive test scores and imaging findings in the chart overview{"\n"}
-          • Use FAST staging to discuss disease progression:{"\n"}  FAST 3-4: early stage, FAST 5-6: middle stage, FAST 7: late stage{"\n"}
+          • Use FAST staging to discuss disease progression:{"\n"}
+          {"   "}FAST 3–4: early stage{"\n"}
+          {"   "}FAST 5–6: middle stage{"\n"}
+          {"   "}FAST 7: late stage{"\n"}
           • Recognize dementia as a terminal illness and begin advance care planning early{"\n"}
-          • Consider hospice when advanced functional decline and qualifying complications occur (FAST 7c + aspiration, recurrent UTI, sepsis, stage 3+ pressure ulcer, FUO, malnutrition)
+          • Consider hospice when advanced functional decline and qualifying complications occur (FAST 7c + aspiration, recurrent UTI, sepsis, stage 3+ pressure ulcer, fever of unknown origin, malnutrition)
         </Text>
+
+        <Text style={styles.privacySection}>Clinical Pearls</Text>
+        <Text style={styles.creditsBody}>
+          • Always obtain collateral history{"\n"}
+          • Rule out delirium and reversible causes{"\n"}
+          • Be explicit when communicating the diagnosis{"\n"}
+          • Treat the family unit, not just the patient{"\n"}
+          • Reduce anticholinergics before adding dementia medications{"\n"}
+          • Address safety issues early{"\n"}
+          • Behavior changes are often unmet needs rather than psychiatric disease{"\n"}
+          • Advance care planning should begin at diagnosis
+        </Text>
+
+        <Text style={styles.privacySection}>References</Text>
+        <Text style={styles.creditsReference}>Kramer ES, Johnson MN, Winslow B. Evaluation of Suspected Dementia. <Text style={styles.creditsJournal}>Am Fam Physician.</Text> 2025.</Text>
+        <Text style={styles.creditsReference}>Arvanitakis Z, Shah RC, Bennett DA. Diagnosis and Management of Dementia: Review. <Text style={styles.creditsJournal}>JAMA.</Text> 2019.</Text>
+        <Text style={styles.creditsReference}>Langa KM, Levine DA. The Diagnosis and Management of Mild Cognitive Impairment. <Text style={styles.creditsJournal}>JAMA.</Text> 2014.</Text>
+        <Text style={styles.creditsReference}>Reuben DB, Kremen S, Maust DT. Dementia Prevention and Treatment. <Text style={styles.creditsJournal}>JAMA Intern Med.</Text> 2024.</Text>
+        <Text style={styles.creditsReference}>Fox NC, Belder C, Ballard C, et al. Treatment for Alzheimer's Disease. <Text style={styles.creditsJournal}>Lancet.</Text> 2025.</Text>
+        <Text style={styles.creditsReference}>Taylor JP, McKeith IG, Burn DJ, et al. New Evidence on the Management of Lewy Body Dementia. <Text style={styles.creditsJournal}>Lancet Neurol.</Text> 2020.</Text>
+        <Text style={styles.creditsReference}>Walker Z, Possin KL, Boeve BF, Aarsland D. Lewy Body Dementias. <Text style={styles.creditsJournal}>Lancet.</Text> 2015.</Text>
+        <Text style={styles.creditsReference}>Rolinski M, Fox C, Maidment I, McShane R. Cholinesterase inhibitors for dementia with Lewy bodies, Parkinson's disease dementia and cognitive impairment in Parkinson's disease. <Text style={styles.creditsJournal}>Cochrane Database Syst Rev.</Text> 2012.</Text>
+        <Text style={styles.creditsReference}>Birks JS, Harvey RJ. Donepezil for Dementia Due to Alzheimer's Disease. <Text style={styles.creditsJournal}>Cochrane Database Syst Rev.</Text> 2018.</Text>
+        <Text style={styles.creditsReference}>McShane R, Westby MJ, Roberts E, et al. Memantine for Dementia. <Text style={styles.creditsJournal}>Cochrane Database Syst Rev.</Text> 2019.</Text>
+        <Text style={styles.creditsReference}>Tampi RR, Jeste DV. Dementia Is More Than Memory Loss: Neuropsychiatric Symptoms of Dementia and Their Nonpharmacological and Pharmacological Management. <Text style={styles.creditsJournal}>Am J Psychiatry.</Text> 2022.</Text>
+        <Text style={styles.creditsReference}>Reus VI, Fochtmann LJ, Eyler AE, et al. The American Psychiatric Association Practice Guideline on the Use of Antipsychotics to Treat Agitation or Psychosis in Patients With Dementia. <Text style={styles.creditsJournal}>Am J Psychiatry.</Text> 2016.</Text>
+        <Text style={styles.creditsReference}>Mühlbauer V, Möhler R, Dichter MN, et al. Antipsychotics for Agitation and Psychosis in People With Alzheimer's Disease and Vascular Dementia. <Text style={styles.creditsJournal}>Cochrane Database Syst Rev.</Text> 2021.</Text>
+        <Text style={styles.creditsReference}>Yunusa I, Alsumali A, Garba AE, Regestein QR, Eguale T. Assessment of Reported Comparative Effectiveness and Safety of Atypical Antipsychotics in the Treatment of Behavioral and Psychological Symptoms of Dementia: A Network Meta-analysis. <Text style={styles.creditsJournal}>JAMA Netw Open.</Text> 2019.</Text>
+        <Text style={styles.creditsReference}>Patnode CD, Perdue LA, Rossom RC, et al. Screening for Cognitive Impairment in Older Adults. <Text style={styles.creditsJournal}>JAMA.</Text> 2020.</Text>
+        <Text style={styles.creditsReference}>Tsoi KK, Chan JY, Hirai HW, Wong SY, Kwok TC. Cognitive Tests to Detect Dementia: A Systematic Review and Meta-analysis. <Text style={styles.creditsJournal}>JAMA Intern Med.</Text> 2015.</Text>
+        <Text style={styles.creditsReference}>Abayomi SN, Sritharan P, Yan E, et al. The Diagnostic Accuracy of the Mini-Cog Screening Tool for the Detection of Cognitive Impairment. <Text style={styles.creditsJournal}>PLoS One.</Text> 2023.</Text>
+        <Text style={styles.creditsReference}>Palmqvist S, Tideman P, Mattsson-Carlgren N, et al. Blood Biomarkers to Detect Alzheimer Disease in Primary Care and Secondary Care. <Text style={styles.creditsJournal}>JAMA.</Text> 2024.</Text>
+        <Text style={styles.creditsReference}>Gifford DR, Holloway RG, Vickrey BG. Systematic Review of Clinical Prediction Rules for Neuroimaging in the Evaluation of Dementia. <Text style={styles.creditsJournal}>Arch Intern Med.</Text> 2000.</Text>
+        <Text style={styles.creditsReference}>Taylor-Rowan M, Edwards S, Noel-Storr AH, et al. Anticholinergic Burden for Prediction of Dementia or Cognitive Decline in Older Adults. <Text style={styles.creditsJournal}>Cochrane Database Syst Rev.</Text> 2021.</Text>
+        <Text style={styles.creditsReference}>Taylor-Rowan M, Alharthi AA, Noel-Storr AH, et al. Anticholinergic Deprescribing Interventions for Reducing Risk of Cognitive Decline or Dementia. <Text style={styles.creditsJournal}>Cochrane Database Syst Rev.</Text> 2023.</Text>
+        <Text style={styles.creditsReference}>Bishara D, Perera G, Harwood D, et al. The anticholinergic effect on cognition (AEC) scale. <Text style={styles.creditsJournal}>Int J Geriatr Psychiatry.</Text> 2020.</Text>
+        <Text style={styles.creditsReference}>Creavin ST, Noel-Storr AH, Langdon RJ, et al. Clinical Judgement by Primary Care Physicians for the Diagnosis of All-Cause Dementia or Cognitive Impairment. <Text style={styles.creditsJournal}>Cochrane Database Syst Rev.</Text> 2022.</Text>
+        <Text style={styles.creditsReference}>Mitchell SL. Advanced Dementia. <Text style={styles.creditsJournal}>N Engl J Med.</Text> 2015.</Text>
+        <Text style={styles.creditsReference}>Mitchell SL, Miller SC, Teno JM, et al. Prediction of 6-Month Survival of Nursing Home Residents With Advanced Dementia Using ADEPT vs Hospice Eligibility Guidelines. <Text style={styles.creditsJournal}>JAMA.</Text> 2010.</Text>
+        <Text style={styles.creditsReference}>Posar SL, Reid A, Heiser DM, Pinon J, Kinzie J. Antipsychotic Drug Reduction through the Implementation of a Neurologically Oriented, Interdisciplinary Psycho-Diagnostic and Antipsychotic Stewardship Program. <Text style={styles.creditsJournal}>J Am Med Dir Assoc.</Text> 2023.</Text>
+        <Text style={styles.creditsReference}>Sleeper RB. Antipsychotic Dose-Sparing Effect With Addition of Memantine. <Text style={styles.creditsJournal}>Ann Pharmacother.</Text> 2005.</Text>
+        <Text style={styles.creditsReference}>Ballard C, Thomas A, Gerry S, et al. A Double-Blind Randomized Placebo-Controlled Withdrawal Trial Comparing Memantine and Antipsychotics for the Long-Term Treatment of Function and Neuropsychiatric Symptoms in People With Alzheimer's Disease (MAIN-AD). <Text style={styles.creditsJournal}>J Am Med Dir Assoc.</Text> 2015.</Text>
+        <Text style={styles.creditsReference}>Song JA, Yang Y, Kim I, et al. Effectiveness of Need-Driven Dementia-Compromised Behavior Model-Based Interventions on Behavioral and Psychological Symptoms of Dementia. <Text style={styles.creditsJournal}>Int J Nurs Stud.</Text> 2026.</Text>
+        <Text style={styles.creditsReference}>Svenningsson P, Westman E, Ballard C, Aarsland D. Cognitive Impairment in Patients With Parkinson's Disease: Diagnosis, Biomarkers, and Treatment. <Text style={styles.creditsJournal}>Lancet Neurol.</Text> 2012.</Text>
+        <Text style={styles.creditsReference}>Serrano-Pozo A, Escott-Price V, Grinberg LT, et al. Alzheimer's Disease. <Text style={styles.creditsJournal}>Lancet.</Text> 2026.</Text>
+        <Text style={styles.creditsReference}>Cribb L, Moreno-Betancur M, Pase MP, et al. Treating Hearing Loss With Hearing Aids for the Prevention of Cognitive Decline and Dementia. <Text style={styles.creditsJournal}>Neurology.</Text> 2026.</Text>
+        <Text style={styles.creditsReference}>Jaqua EE, Tran MN, Hanna M. Alzheimer Disease: Treatment of Cognitive and Functional Symptoms. <Text style={styles.creditsJournal}>Am Fam Physician.</Text> 2024.</Text>
+        <Text style={styles.creditsReference}>Breton A, Casey D, Arnaoutoglou NA. Cognitive tests for the detection of mild cognitive impairment (MCI), the prodromal stage of dementia: Meta-analysis of diagnostic accuracy studies. <Text style={styles.creditsJournal}>Int J Geriatr Psychiatry.</Text> 2019.</Text>
+        <Text style={styles.creditsReference}>Panjwani M, Holmes JM, Liu SH, et al. Artificial Intelligence for Detection and Staging of Alzheimer's Disease Using Retinal Images. <Text style={styles.creditsJournal}>Cochrane Database Syst Rev.</Text> 2026.</Text>
+        <Text style={styles.creditsReference}>Sabayan B, Boden-Albala B, Rost NS. An Ounce of Prevention: The Growing Need for Preventive Neurologists. <Text style={styles.creditsJournal}>Neurology.</Text> 2025.</Text>
 
         <Button label="Back" variant="secondary" onPress={() => setScreen("main")} />
       </ScrollView>
