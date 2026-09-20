@@ -118,6 +118,7 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
   const [showCube, setShowCube] = useState(false);
   const [storyPlaying, setStoryPlaying] = useState(false);
   const storySoundRef = useRef(null);
+  const [openTipsSection, setOpenTipsSection] = useState(null);
 
   const goHistory = (from) => { setReturnScreen(from); setScreen("history"); };
 
@@ -550,6 +551,7 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
             resetAssessment();
           }}
         />
+        <Button label="Dementia Tips" variant="secondary" onPress={() => setScreen("dementiaTips")} />
         <Button label="Back Home" variant="secondary" onPress={() => setScreen("home")} />
       </ScrollView>
     );
@@ -780,6 +782,7 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
             resetRudasAssessment();
           }}
         />
+        <Button label="Dementia Tips" variant="secondary" onPress={() => setScreen("dementiaTips")} />
         <Button label="Back" variant="secondary" onPress={() => setScreen("rudas")} />
       </ScrollView>
     );
@@ -860,6 +863,7 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
         {saved && <Text style={styles.savedText}>Saved!</Text>}
         <Button label="View History" variant="secondary" onPress={() => goHistory("ad8_assessment")} />
         <Button label="Start New Assessment" variant="secondary" onPress={resetAd8Assessment} />
+        <Button label="Dementia Tips" variant="secondary" onPress={() => setScreen("dementiaTips")} />
         <Button label="Back" variant="secondary" onPress={() => setScreen("ad8")} />
       </ScrollView>
     );
@@ -1062,222 +1066,310 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
   }
 
   if (screen === "dementiaTips") {
+    const toggle = (key) => setOpenTipsSection((prev) => (prev === key ? null : key));
+    const isOpen = (key) => openTipsSection === key;
+    const SectionHeader = ({ id, title }) => (
+      <Pressable onPress={() => toggle(id)} style={styles.tipsSectionHeader}>
+        <Text style={[styles.privacySection, { marginTop: 0, flex: 1 }]}>{title}</Text>
+        <Text style={styles.tipsSectionChevron}>{isOpen(id) ? "▾" : "›"}</Text>
+      </Pressable>
+    );
     return (
       <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
         <Text style={styles.title}>Dementia Tips</Text>
         <Text style={styles.mutedSmall}>Practical Clinical Approach for PCPs</Text>
         <Text style={styles.creditsBody}>Credits: Providence Senior Health, Marian Hodges MD et al</Text>
 
-        <Text style={styles.privacySection}>When to Suspect Dementia</Text>
-        <Text style={styles.creditsBody}>
-          Dementia is frequently underdiagnosed; many patients with abnormal cognitive screening never receive a formal evaluation or diagnosis.
-        </Text>
-        <Text style={styles.creditsBody}>
-          Be suspicious when patients:{"\n"}
-          • Miss appointments or arrive on the wrong day/time{"\n"}
-          • Become poor historians, evasive, repetitive, or compensate with humor{"\n"}
-          • Present with new anxiety or depression after age 65{"\n"}
-          • Experience delirium during hospitalization or acute illness{"\n"}
-          • Show decline in grooming, appearance, or functioning
-        </Text>
+        <Text style={styles.tipsGroupLabel}>Recognition</Text>
 
-        <Text style={styles.privacySection}>Diagnostic Framework</Text>
-        <Text style={styles.creditsBody}>
-          Dementia is a syndrome, not a single disease. Diagnosis requires:{"\n"}
-          • Cognitive impairment (observed + reported + tested){"\n"}
-          • Neuropsychiatric/behavioral symptoms (often precede or exceed "memory" issues){"\n"}
-          • Loss of independent function (especially IADLs)
-        </Text>
-        <Text style={styles.creditsBody}>
-          Rule out:{"\n"}
-          • Delirium{"\n"}
-          • Depression{"\n"}
-          • Reversible causes of cognitive impairment
-        </Text>
+        <SectionHeader id="suspect" title="When to Suspect Dementia" />
+        {isOpen("suspect") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>Dementia is frequently underdiagnosed; many patients with abnormal cognitive screening never receive a formal evaluation or diagnosis.</Text>
+            <Text style={styles.creditsBody}>
+              Be suspicious when patients:{"\n"}
+              • Miss appointments or arrive on the wrong day/time{"\n"}
+              • Become poor historians, evasive, repetitive, or compensate with humor{"\n"}
+              • Present with new anxiety or depression after age 65{"\n"}
+              • Experience delirium during hospitalization or acute illness{"\n"}
+              • Show decline in grooming, appearance, or functioning
+            </Text>
+          </View>
+        )}
 
-        <Text style={styles.privacySection}>Differentiate MCI from Dementia</Text>
-        <Text style={styles.creditsBody}>
-          <Text style={{ fontWeight: "700" }}>Mild Cognitive Impairment (MCI):</Text>{"\n"}
-          • Objective cognitive deficits{"\n"}
-          • ADLs and IADLs remain intact{"\n"}
-          • Some cases are reversible, often medication-related
-        </Text>
-        <Text style={styles.creditsBody}>
-          <Text style={{ fontWeight: "700" }}>Dementia:</Text>{"\n"}
-          • Cognitive deficits plus functional impairment{"\n"}
-          • Progressive impact on daily life and decision making
-        </Text>
+        <SectionHeader id="framework" title="Diagnostic Framework" />
+        {isOpen("framework") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>
+              Dementia is a syndrome, not a single disease. Diagnosis requires:{"\n"}
+              • Cognitive impairment (observed + reported + tested){"\n"}
+              • Neuropsychiatric/behavioral symptoms (often precede or exceed "memory" issues){"\n"}
+              • Loss of independent function (especially IADLs)
+            </Text>
+            <Text style={styles.creditsBody}>
+              Rule out:{"\n"}
+              • Delirium{"\n"}
+              • Depression{"\n"}
+              • Reversible causes of cognitive impairment
+            </Text>
+          </View>
+        )}
 
-        <Text style={styles.privacySection}>Evaluation and Workup</Text>
-        <Text style={styles.creditsBody}>
-          • Obtain collateral history from a reliable informant whenever possible{"\n"}
-          • Assess IADLs and caregiver observations: driving, meds, finance, shopping, cooking, housekeeping, communications{"\n"}
-          • Use validated tools:{"\n"}
-          {"   "}"This is a brief cognitive test I give all older adults and helps us monitor brain function over time"{"\n"}
-          {"   "}AD8 (≥2 suggests concern), uses outside informant observations{"\n"}
-          {"   "}Mini-Cog (≤2 abnormal), quick screen, can be added to a routine visit{"\n"}
-          {"   "}SLUMS or MoCA for more detailed assessment
-        </Text>
-        <Text style={styles.creditsBody}>
-          <Text style={{ fontWeight: "700" }}>Laboratory evaluation:</Text>{"\n"}
-          CBC, CMP, TSH, B12. Consider additional testing based on clinical context (e.g., folate, HIV, RPR, vitamin D, toxicology)
-        </Text>
-        <Text style={styles.creditsBody}>
-          Consider blood-based Alzheimer's biomarkers (e.g., p-tau217) when the diagnosis is uncertain, early Alzheimer's is suspected, and the patient/family wants more certainty and would be open to neurology referral for anti-amyloid mAbs. Need to understand the burden of frequent MRI monitoring and risks of bleeding. Real-world accuracy may be lower than in specialist studies and thresholds depend on the context of use.
-        </Text>
-        <Text style={styles.creditsBody}>
-          Consider brain MRI when:{"\n"}
-          • Age {"<"}65{"\n"}
-          • Rapid decline{"\n"}
-          • Focal neurologic findings{"\n"}
-          • Suspected NPH{"\n"}
-          • Prior TBI{"\n"}
-          • Atypical features
-        </Text>
+        <SectionHeader id="mci" title="Differentiate MCI from Dementia" />
+        {isOpen("mci") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>
+              <Text style={{ fontWeight: "700" }}>Mild Cognitive Impairment (MCI):</Text>{"\n"}
+              • Objective cognitive deficits{"\n"}
+              • ADLs and IADLs remain intact{"\n"}
+              • Some cases are reversible, often medication-related
+            </Text>
+            <Text style={styles.creditsBody}>
+              <Text style={{ fontWeight: "700" }}>Dementia:</Text>{"\n"}
+              • Cognitive deficits plus functional impairment{"\n"}
+              • Progressive impact on daily life and decision making
+            </Text>
+          </View>
+        )}
 
-        <Text style={styles.privacySection}>Common Dementia Types</Text>
-        <Text style={styles.creditsBody}>
-          • Alzheimer's disease{"\n"}
-          • Vascular dementia{"\n"}
-          • Lewy body disease{"\n"}
-          • Frontotemporal dementia{"\n"}
-          • Parkinson's disease dementia{"\n"}
-          • Alcohol-related dementia{"\n"}
-          • Mixed pathology is common, particularly Alzheimer's disease + vascular dementia
-        </Text>
+        <SectionHeader id="workup" title="Evaluation and Workup" />
+        {isOpen("workup") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>
+              • Obtain collateral history from a reliable informant whenever possible{"\n"}
+              • Assess IADLs and caregiver observations: driving, meds, finance, shopping, cooking, housekeeping, communications{"\n"}
+              • Use validated tools:{"\n"}
+              {"   "}"This is a brief cognitive test I give all older adults and helps us monitor brain function over time"{"\n"}
+              {"   "}AD8 (≥2 suggests concern), uses outside informant observations{"\n"}
+              {"   "}Mini-Cog (≤2 abnormal), quick screen, can be added to a routine visit{"\n"}
+              {"   "}SLUMS or MoCA for more detailed assessment
+            </Text>
+            <Text style={styles.creditsBody}>
+              <Text style={{ fontWeight: "700" }}>Laboratory evaluation:</Text>{"\n"}
+              CBC, CMP, TSH, B12. Consider additional testing based on clinical context (e.g., folate, HIV, RPR, vitamin D, toxicology)
+            </Text>
+            <Text style={styles.creditsBody}>
+              Consider blood-based Alzheimer's biomarkers (e.g., p-tau217) when the diagnosis is uncertain, early Alzheimer's is suspected, and the patient/family wants more certainty and would be open to neurology referral for anti-amyloid mAbs. Need to understand the burden of frequent MRI monitoring and risks of bleeding. Real-world accuracy may be lower than in specialist studies and thresholds depend on the context of use.
+            </Text>
+            <Text style={styles.creditsBody}>
+              Consider brain MRI when:{"\n"}
+              • Age {"<"}65{"\n"}
+              • Rapid decline{"\n"}
+              • Focal neurologic findings{"\n"}
+              • Suspected NPH{"\n"}
+              • Prior TBI{"\n"}
+              • Atypical features
+            </Text>
+          </View>
+        )}
 
-        <Text style={styles.privacySection}>Communicating a New Dementia Diagnosis</Text>
-        <Text style={styles.creditsBody}>
-          • Consider a dedicated follow-up visit to review diagnostic findings{"\n"}
-          • Ask permission before discussing details{"\n"}
-          • Present findings first, then give a clear diagnostic headline{"\n"}
-          • Be explicit and direct: "Based on your symptoms, testing, and imaging, you have dementia"{"\n"}
-          • Pause and allow patients/families time to process{"\n"}
-          • Follow the diagnosis with supportive statements and reassurance{"\n"}
-          • Provide written information and a written care plan{"\n"}
-          • Involve caregivers early in implementation of the plan
-        </Text>
+        <SectionHeader id="types" title="Common Dementia Types" />
+        {isOpen("types") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>
+              • Alzheimer's disease{"\n"}
+              • Vascular dementia{"\n"}
+              • Lewy body disease{"\n"}
+              • Frontotemporal dementia{"\n"}
+              • Parkinson's disease dementia{"\n"}
+              • Alcohol-related dementia{"\n"}
+              • Mixed pathology is common, particularly Alzheimer's disease + vascular dementia
+            </Text>
+          </View>
+        )}
 
-        <Text style={styles.privacySection}>Why Diagnosis Matters</Text>
-        <Text style={styles.creditsBody}>
-          Enables planning for:{"\n"}
-          • Finances{"\n"}
-          • Advance directives{"\n"}
-          • Housing and living arrangements
-        </Text>
-        <Text style={styles.creditsBody}>
-          Also:{"\n"}
-          • Helps families access support and resources{"\n"}
-          • Identifies safety concerns sooner{"\n"}
-          • Influences medication management and future medical decision-making{"\n"}
-          • Reduces risks associated with undiagnosed dementia, including unsafe driving, medication self-management, and financial decision-making
-        </Text>
+        <Text style={styles.tipsGroupLabel}>Communication</Text>
 
-        <Text style={styles.privacySection}>Treatment Planning</Text>
-        <Text style={styles.creditsBody}>
-          <Text style={{ fontWeight: "700" }}>Non-Pharmacologic Interventions:</Text>{"\n"}
-          Emphasize:{"\n"}
-          • Regular physical activity{"\n"}
-          • Good sleep{"\n"}
-          • Healthy diet{"\n"}
-          • Cognitive stimulation{"\n"}
-          • Alcohol reduction/avoidance{"\n"}
-          • Hearing evaluation and treatment (better supported for prevention; less evidence once dementia is already present)
-        </Text>
-        <Text style={styles.creditsBody}>
-          <Text style={{ fontWeight: "700" }}>Medication Principles:</Text>{"\n"}
-          First review medications and reduce anticholinergic burden whenever possible.
-        </Text>
-        <Text style={styles.creditsBody}>
-          <Text style={{ fontWeight: "700" }}>Cholinesterase Inhibitors:</Text>{"\n"}
-          • Donepezil (~9–20% cognitive responder rate across the class on the MMSE; minimal BPSD response){"\n"}
-          • Rivastigmine: in Parkinson's disease dementia, ~20% global/cognitive responder rate, with significant neuropsychiatric improvement on the NPI as a secondary outcome, strongest in patients with hallucinations{"\n"}
-          • Most useful in mild-to-moderate dementia (donepezil is also FDA-approved for the severe stage)
-        </Text>
-        <Text style={styles.creditsBody}>
-          <Text style={{ fontWeight: "700" }}>Memantine:</Text>{"\n"}
-          Consider in moderate-to-severe dementia (NNT ~3–8 for cognitive benefit). May provide modest benefit when combined with donepezil. Small but significant effect on behavioral symptoms (NPI mean difference ~1.8 points; SMD ~0.2). May decrease the need for antipsychotics.
-        </Text>
-        <Text style={styles.creditsBody}>
-          <Text style={{ fontWeight: "700" }}>Monitor for adverse effects:</Text>{"\n"}
-          Cholinesterase inhibitors: dose-dependent GI effects (nausea, anorexia, diarrhea, vomiting), bradycardia, dizziness, nightmares. Memantine: dizziness, headache, sedation.
-        </Text>
+        <SectionHeader id="communicating" title="Communicating a New Dementia Diagnosis" />
+        {isOpen("communicating") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>
+              • Consider a dedicated follow-up visit to review diagnostic findings{"\n"}
+              • Ask permission before discussing details{"\n"}
+              • Present findings first, then give a clear diagnostic headline{"\n"}
+              • Be explicit and direct: "Based on your symptoms, testing, and imaging, you have dementia"{"\n"}
+              • Pause and allow patients/families time to process{"\n"}
+              • Follow the diagnosis with supportive statements and reassurance{"\n"}
+              • Provide written information and a written care plan{"\n"}
+              • Involve caregivers early in implementation of the plan
+            </Text>
+          </View>
+        )}
 
-        <Text style={styles.privacySection}>Counseling Families and Caregivers</Text>
-        <Text style={styles.creditsBody}>
-          • Support the family as actively as the patient{"\n"}
-          • Speak to the patient first and ask permission before discussing concerns with family{"\n"}
-          • Listen to caregiver experiences and validate their stress{"\n"}
-          • Reassure caregivers when they are doing their best under difficult circumstances{"\n"}
-          • Encourage caregivers to obtain their own support and healthcare resources{"\n"}
-          • Discuss safety proactively:{"\n"}
-          {"   "}Driving, Wandering, Firearms, Medication management, Food preparation and kitchen safety
-        </Text>
+        <SectionHeader id="whydx" title="Why Diagnosis Matters" />
+        {isOpen("whydx") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>
+              • Planning for finances, advance directives, and housing{"\n"}
+              • Helps families access support and resources{"\n"}
+              • Identifies safety concerns sooner{"\n"}
+              • Influences medication management and future medical decision-making{"\n"}
+              • Reduces risks of unsafe driving, medication self-management errors, and financial exploitation
+            </Text>
+          </View>
+        )}
 
-        <Text style={styles.privacySection}>Managing Behavioral Symptoms</Text>
-        <Text style={styles.creditsBody}>
-          Reassure caregivers that behavioral and psychological symptoms of dementia (BPSD) are expected in {">"} 90% of patients over the disease course. View behavioral symptoms as expressions of unmet needs.
-        </Text>
-        <Text style={styles.creditsBody}>
-          Consider: pain, constipation, hunger, dehydration, incontinence, loneliness, overstimulation, sundowning.
-        </Text>
-        <Text style={styles.creditsBody}>
-          <Text style={{ fontWeight: "700" }}>Use the DICE framework:</Text>{"\n"}
-          • Describe{"\n"}
-          • Investigate{"\n"}
-          • Create a plan{"\n"}
-          • Evaluate
-        </Text>
-        <Text style={styles.creditsBody}>
-          Avoid attributing behavior changes to UTI without urinary symptoms.
-        </Text>
+        <Text style={styles.tipsGroupLabel}>Management</Text>
 
-        <Text style={styles.privacySection}>Antipsychotic Use</Text>
-        <Text style={styles.creditsBody}>
-          Consider antipsychotics as last-line and only after discussing black-box warnings, primarily for:{"\n"}
-          • Delusions{"\n"}
-          • Hallucinations{"\n"}
-          • Paranoia{"\n"}
-          • Aggression
-        </Text>
-        <Text style={styles.creditsBody}>
-          Antipsychotics generally do not improve: repetition, pacing, apathy, insomnia.
-        </Text>
-        <Text style={styles.creditsBody}>
-          Start low, titrate slowly, reassess efficacy and adverse effects, and taper later. Structured interdisciplinary stewardship/deprescribing programs can substantially and safely reduce antipsychotic use in facility settings.
-        </Text>
-        <Text style={styles.creditsBody}>
-          • Quetiapine 25 mg HS (most sedating; preferred in Lewy body disease due to low extrapyramidal risk, though cholinesterase inhibitors are first-line for neuropsychiatric symptoms in LBD; least antipsychotic efficacy evidence){"\n"}
-          • Olanzapine 2.5 mg HS (moderately sedating){"\n"}
-          • Risperidone 0.25 mg BID (least sedating, may require higher doses; strongest evidence for aggression/psychosis but highest cardiovascular/cerebrovascular risk){"\n"}
-          • Aripiprazole 2 mg QD (most consistent efficacy and cardiovascular safety balance; often needs titration toward ~10 mg)
-        </Text>
+        <SectionHeader id="treatment" title="Treatment Planning" />
+        {isOpen("treatment") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>
+              <Text style={{ fontWeight: "700" }}>Non-Pharmacologic Interventions:</Text>{"\n"}
+              Emphasize:{"\n"}
+              • Regular physical activity{"\n"}
+              • Good sleep{"\n"}
+              • Healthy diet{"\n"}
+              • Cognitive stimulation{"\n"}
+              • Alcohol reduction/avoidance{"\n"}
+              • Hearing evaluation and treatment (better supported for prevention; less evidence once dementia is already present)
+            </Text>
+            <Text style={styles.creditsBody}>
+              <Text style={{ fontWeight: "700" }}>Medication Principles:</Text>{"\n"}
+              First review medications and reduce anticholinergic burden whenever possible.
+            </Text>
+            <Text style={styles.creditsBody}>
+              <Text style={{ fontWeight: "700" }}>Cholinesterase Inhibitors:</Text>{"\n"}
+              • Donepezil (~9–20% cognitive responder rate across the class on the MMSE; minimal BPSD response){"\n"}
+              • Rivastigmine: in Parkinson's disease dementia, ~20% global/cognitive responder rate, with significant neuropsychiatric improvement on the NPI as a secondary outcome, strongest in patients with hallucinations{"\n"}
+              • Most useful in mild-to-moderate dementia (donepezil is also FDA-approved for the severe stage)
+            </Text>
+            <Text style={styles.creditsBody}>
+              <Text style={{ fontWeight: "700" }}>Memantine:</Text>{"\n"}
+              Consider in moderate-to-severe dementia (NNT ~3–8 for cognitive benefit). May provide modest benefit when combined with donepezil. Small but significant effect on behavioral symptoms (NPI mean difference ~1.8 points; SMD ~0.2). May decrease the need for antipsychotics.
+            </Text>
+            <Text style={styles.creditsBody}>
+              <Text style={{ fontWeight: "700" }}>Monitor for adverse effects:</Text>{"\n"}
+              Cholinesterase inhibitors: dose-dependent GI effects (nausea, anorexia, diarrhea, vomiting), bradycardia, dizziness, nightmares. Memantine: dizziness, headache, sedation.
+            </Text>
+          </View>
+        )}
 
-        <Text style={styles.privacySection}>Prognosis and Ongoing Care</Text>
-        <Text style={styles.creditsBody}>
-          • Document the diagnosis on the problem list{"\n"}
-          • Include cognitive test scores and imaging findings in the chart overview{"\n"}
-          • Use FAST staging to discuss disease progression:{"\n"}
-          {"   "}FAST 3–4: early stage{"\n"}
-          {"   "}FAST 5–6: middle stage{"\n"}
-          {"   "}FAST 7: late stage{"\n"}
-          • Recognize dementia as a terminal illness and begin advance care planning early{"\n"}
-          • Consider hospice when advanced functional decline and qualifying complications occur (FAST 7c + aspiration, recurrent UTI, sepsis, stage 3+ pressure ulcer, fever of unknown origin, malnutrition)
-        </Text>
+        <SectionHeader id="counseling" title="Counseling Families and Caregivers" />
+        {isOpen("counseling") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>
+              • Support the family as actively as the patient{"\n"}
+              • Speak to the patient first and ask permission before discussing concerns with family{"\n"}
+              • Listen to caregiver experiences and validate their stress{"\n"}
+              • Reassure caregivers when they are doing their best under difficult circumstances{"\n"}
+              • Encourage caregivers to obtain their own support and healthcare resources{"\n"}
+              • Discuss safety proactively:{"\n"}
+              {"   "}Driving, Wandering, Firearms, Medication management, Food preparation and kitchen safety
+            </Text>
+          </View>
+        )}
 
-        <Text style={styles.privacySection}>Clinical Pearls</Text>
-        <Text style={styles.creditsBody}>
-          • Always obtain collateral history{"\n"}
-          • Rule out delirium and reversible causes{"\n"}
-          • Be explicit when communicating the diagnosis{"\n"}
-          • Treat the family unit, not just the patient{"\n"}
-          • Reduce anticholinergics before adding dementia medications{"\n"}
-          • Address safety issues early{"\n"}
-          • Behavior changes are often unmet needs rather than psychiatric disease{"\n"}
-          • Advance care planning should begin at diagnosis
-        </Text>
+        <SectionHeader id="bpsd" title="Managing Behavioral Symptoms" />
+        {isOpen("bpsd") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>Reassure caregivers that behavioral and psychological symptoms of dementia (BPSD) are expected in {">"} 90% of patients over the disease course. View behavioral symptoms as expressions of unmet needs.</Text>
+            <Text style={styles.creditsBody}>
+              Consider:{"\n"}
+              • Pain or constipation{"\n"}
+              • Hunger or dehydration{"\n"}
+              • Incontinence{"\n"}
+              • Loneliness{"\n"}
+              • Overstimulation{"\n"}
+              • Sundowning
+            </Text>
+            <Text style={styles.creditsBody}>
+              <Text style={{ fontWeight: "700" }}>Use the DICE framework:</Text>{"\n"}
+              • Describe{"\n"}
+              • Investigate{"\n"}
+              • Create a plan{"\n"}
+              • Evaluate
+            </Text>
+            <Text style={styles.creditsBody}>Avoid attributing behavior changes to UTI without urinary symptoms.</Text>
+          </View>
+        )}
 
-        <Text style={styles.privacySection}>References</Text>
+        <SectionHeader id="antipsychotics" title="Antipsychotic Use" />
+        {isOpen("antipsychotics") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>
+              Consider as last-line and only after discussing black-box warnings, primarily for:{"\n"}
+              • Delusions{"\n"}
+              • Hallucinations{"\n"}
+              • Paranoia{"\n"}
+              • Aggression
+            </Text>
+            <Text style={styles.creditsBody}>Antipsychotics generally do not improve: repetition, pacing, apathy, insomnia.</Text>
+            <Text style={styles.creditsBody}>Start low, titrate slowly, reassess efficacy and adverse effects, and taper later. Structured interdisciplinary stewardship/deprescribing programs can substantially and safely reduce antipsychotic use in facility settings.</Text>
+            <View style={styles.tipsTable}>
+              <View style={styles.tipsTableHeaderRow}>
+                <Text style={[styles.tipsTableHeaderCell, { flex: 2.5 }]}>Drug</Text>
+                <Text style={[styles.tipsTableHeaderCell, { flex: 2 }]}>Starting dose</Text>
+                <Text style={[styles.tipsTableHeaderCell, { flex: 4.5 }]}>Notes</Text>
+              </View>
+              <View style={styles.tipsTableRow}>
+                <Text style={[styles.tipsTableCell, styles.tipsTableDrug, { flex: 2.5 }]}>Quetiapine</Text>
+                <Text style={[styles.tipsTableCell, { flex: 2 }]}>25 mg HS</Text>
+                <Text style={[styles.tipsTableCell, { flex: 4.5 }]}>Preferred in LBD; most sedating; least efficacy evidence</Text>
+              </View>
+              <View style={[styles.tipsTableRow, styles.tipsTableRowAlt]}>
+                <Text style={[styles.tipsTableCell, styles.tipsTableDrug, { flex: 2.5 }]}>Olanzapine</Text>
+                <Text style={[styles.tipsTableCell, { flex: 2 }]}>2.5 mg HS</Text>
+                <Text style={[styles.tipsTableCell, { flex: 4.5 }]}>Moderately sedating</Text>
+              </View>
+              <View style={styles.tipsTableRow}>
+                <Text style={[styles.tipsTableCell, styles.tipsTableDrug, { flex: 2.5 }]}>Risperidone</Text>
+                <Text style={[styles.tipsTableCell, { flex: 2 }]}>0.25 mg BID</Text>
+                <Text style={[styles.tipsTableCell, { flex: 4.5 }]}>Strongest evidence; highest CV/cerebrovascular risk</Text>
+              </View>
+              <View style={[styles.tipsTableRow, styles.tipsTableRowAlt]}>
+                <Text style={[styles.tipsTableCell, styles.tipsTableDrug, { flex: 2.5 }]}>Aripiprazole</Text>
+                <Text style={[styles.tipsTableCell, { flex: 2 }]}>2 mg QD</Text>
+                <Text style={[styles.tipsTableCell, { flex: 4.5 }]}>Best CV safety balance; titrate toward ~10 mg</Text>
+              </View>
+            </View>
+          </View>
+        )}
+
+        <SectionHeader id="prognosis" title="Prognosis and Ongoing Care" />
+        {isOpen("prognosis") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>
+              • Document the diagnosis on the problem list{"\n"}
+              • Include cognitive test scores and imaging findings in the chart overview{"\n"}
+              • Use FAST staging to discuss disease progression:{"\n"}
+              {"   "}FAST 3–4: early stage{"\n"}
+              {"   "}FAST 5–6: middle stage{"\n"}
+              {"   "}FAST 7: late stage{"\n"}
+              • Recognize dementia as a terminal illness and begin advance care planning early{"\n"}
+              • Consider hospice when advanced functional decline and qualifying complications occur (FAST 7c + aspiration, recurrent UTI, sepsis, stage 3+ pressure ulcer, fever of unknown origin, malnutrition)
+            </Text>
+          </View>
+        )}
+
+        <SectionHeader id="pearls" title="Clinical Pearls" />
+        {isOpen("pearls") && (
+          <View style={styles.tipsSectionBody}>
+            <Text style={styles.creditsBody}>
+              • Always obtain collateral history{"\n"}
+              • Rule out delirium and reversible causes{"\n"}
+              • Be explicit when communicating the diagnosis{"\n"}
+              • Treat the family unit, not just the patient{"\n"}
+              • Reduce anticholinergics before adding dementia medications{"\n"}
+              • Address safety issues early{"\n"}
+              • Behavior changes are often unmet needs rather than psychiatric disease{"\n"}
+              • Advance care planning should begin at diagnosis
+            </Text>
+          </View>
+        )}
+
+        <Button label="References (36)" variant="secondary" onPress={() => setScreen("dementiaTipsReferences")} />
+        <Button label="Back" variant="secondary" onPress={() => setScreen("main")} />
+      </ScrollView>
+    );
+  }
+
+  if (screen === "dementiaTipsReferences") {
+    return (
+      <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
+        <Text style={styles.title}>References</Text>
+        <Text style={styles.mutedSmall}>Dementia Tips for the PCP</Text>
+
         <Text style={styles.creditsReference}>Kramer ES, Johnson MN, Winslow B. Evaluation of Suspected Dementia. <Text style={styles.creditsJournal}>Am Fam Physician.</Text> 2025.</Text>
         <Text style={styles.creditsReference}>Arvanitakis Z, Shah RC, Bennett DA. Diagnosis and Management of Dementia: Review. <Text style={styles.creditsJournal}>JAMA.</Text> 2019.</Text>
         <Text style={styles.creditsReference}>Langa KM, Levine DA. The Diagnosis and Management of Mild Cognitive Impairment. <Text style={styles.creditsJournal}>JAMA.</Text> 2014.</Text>
@@ -1315,7 +1407,7 @@ function AppContent({ showWalkthrough, setShowWalkthrough }) {
         <Text style={styles.creditsReference}>Panjwani M, Holmes JM, Liu SH, et al. Artificial Intelligence for Detection and Staging of Alzheimer's Disease Using Retinal Images. <Text style={styles.creditsJournal}>Cochrane Database Syst Rev.</Text> 2026.</Text>
         <Text style={styles.creditsReference}>Sabayan B, Boden-Albala B, Rost NS. An Ounce of Prevention: The Growing Need for Preventive Neurologists. <Text style={styles.creditsJournal}>Neurology.</Text> 2025.</Text>
 
-        <Button label="Back" variant="secondary" onPress={() => setScreen("main")} />
+        <Button label="Back" variant="secondary" onPress={() => setScreen("dementiaTips")} />
       </ScrollView>
     );
   }
@@ -1678,5 +1770,71 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#1f2d5c",
     marginTop: 8,
+  },
+  tipsGroupLabel: {
+    fontSize: 11,
+    fontWeight: "700",
+    letterSpacing: 1,
+    textTransform: "uppercase",
+    color: "#8a9ab5",
+    marginTop: 20,
+    marginBottom: 2,
+  },
+  tipsSectionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 8,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(31,45,92,0.12)",
+  },
+  tipsSectionChevron: {
+    fontSize: 18,
+    color: "#1f2d5c",
+    fontWeight: "600",
+    opacity: 0.45,
+  },
+  tipsSectionBody: {
+    gap: 10,
+    paddingBottom: 10,
+  },
+  tipsTable: {
+    borderWidth: 1,
+    borderColor: "rgba(31,45,92,0.2)",
+    borderRadius: 8,
+    overflow: "hidden",
+    marginTop: 8,
+  },
+  tipsTableHeaderRow: {
+    flexDirection: "row",
+    backgroundColor: "#1f2d5c",
+    paddingHorizontal: 8,
+    paddingVertical: 7,
+  },
+  tipsTableHeaderCell: {
+    fontSize: 11,
+    fontWeight: "700",
+    color: "#ffffff",
+    lineHeight: 16,
+    textAlign: "center",
+  },
+  tipsTableRow: {
+    flexDirection: "row",
+    paddingHorizontal: 8,
+    paddingVertical: 7,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(31,45,92,0.1)",
+  },
+  tipsTableRowAlt: {
+    backgroundColor: "rgba(31,45,92,0.04)",
+  },
+  tipsTableCell: {
+    fontSize: 12,
+    lineHeight: 17,
+    color: "#333",
+  },
+  tipsTableDrug: {
+    fontWeight: "700",
+    color: "#1f2d5c",
   },
 });
